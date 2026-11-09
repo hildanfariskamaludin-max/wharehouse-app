@@ -1,0 +1,366 @@
+/* ══════════════════════════════════════════════════════════════
+   WAREHOUSE SYSTEM — Halaman Login Admin
+   Modern, Minimalist, Black & White Color Scheme
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+:root {
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-blue: #0066FF;
+  --color-blue-hover: #0052CC;
+  --color-light-bg: #F3F5F8;
+  --color-dark-text: #172033;
+  --color-secondary-text: #64748B;
+  --color-border: #E2E8F0;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --blue-rgb: 0, 102, 255;
+  --dark-rgb: 23, 32, 51;
+}
+
+/* ─── Base & Global ─── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-dark-text);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+a { text-decoration: none; }
+
+/* ─── 1. LOGIN PAGE ─── */
+.login-page {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  color: var(--color-dark-text);
+  background: #0B1B2B;
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+/* Background subtlety - minimal, warna hangat foto dikecilkan agar tidak terlihat oranye */
+.login-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("../img/hero-warehouse.jpg") center / cover no-repeat;
+  opacity: .06;
+}
+
+.login-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(11, 27, 43, .92), rgba(11, 27, 43, .92)),
+    linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+  background-size: 100% 100%, 56px 56px, 56px 56px;
+}
+
+.login-shell {
+  width: min(432px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  max-width: 100%;
+}
+
+/* ─── Brand ─── */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: loginFadeUp .6s var(--ease) both;
+}
+.login-brand__name {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: .02em;
+  color: var(--color-white);
+}
+.login-brand__name span {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .3em;
+  color: #66A3FF;
+}
+
+/* ─── Card ─── */
+.login-card {
+  width: 100%;
+  position: relative;
+  background: var(--color-white);
+  color: var(--color-dark-text);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem 1.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35), 0 0 0 1px rgba(255, 255, 255, .08);
+  animation: loginFadeUp .65s var(--ease) .08s both;
+  overflow: hidden;
+}
+.login-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--color-blue);
+}
+
+.login-title {
+  font-family: 'Sora', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  color: var(--color-dark-text);
+  margin: 0 0 .25rem;
+}
+.login-subtitle {
+  font-size: .8rem;
+  color: var(--color-secondary-text);
+  margin: 0 0 1rem;
+}
+
+/* ─── Alerts ─── */
+.login-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .55rem .7rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  font-size: .75rem;
+  line-height: 1.4;
+  margin-bottom: .8rem;
+  animation: loginFadeUp .35s var(--ease) both;
+}
+.login-alert__icon { flex: 0 0 auto; margin-top: .05rem; }
+.login-alert__icon svg { width: 14px; height: 14px; }
+.login-alert__body strong { display: block; font-size: .7rem; margin-bottom: .05rem; }
+.login-alert__body p { margin: 0; }
+.login-alert--error { background: #fff7f7; border-color: #fecaca; color: #b91c1c; }
+.login-alert--success { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+.login-alert--info { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+
+/* ─── Form ─── */
+.login-field { margin-bottom: .75rem; }
+.login-field label {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--color-dark-text);
+  margin-bottom: .25rem;
+}
+.login-input { position: relative; }
+.login-input input {
+  width: 100%;
+  height: 48px;
+  padding: 0 2.75rem 0 2.75rem;
+  font: inherit;
+  font-size: .85rem;
+  color: var(--color-dark-text);
+  background: var(--color-light-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.login-input input::placeholder { color: var(--color-secondary-text); }
+.login-input input:focus {
+  outline: none;
+  background: var(--color-white);
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 4px rgba(var(--blue-rgb), .15);
+}
+.login-input input:focus-within .login-input__icon { color: var(--color-blue-hover); }
+
+.login-input__icon {
+  position: absolute;
+  left: .8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-blue);
+  display: inline-flex;
+  pointer-events: none;
+}
+.login-input:has(input:focus) .login-input__icon {
+  color: var(--color-blue-hover);
+}
+
+/* Matikan highlight kuning/oranye autofill browser — ganti biru/putih */
+.login-input input:-webkit-autofill,
+.login-input input:-webkit-autofill:hover,
+.login-input input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-dark-text);
+  -webkit-box-shadow: 0 0 0 1000px #EFF6FF inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--color-dark-text);
+}
+.login-input input:-moz-autofill {
+  background-color: #EFF6FF;
+  color: var(--color-dark-text);
+}
+
+.pw-toggle {
+  position: absolute;
+  right: .5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-secondary-text);
+  transition: background .2s, color .2s;
+}
+.pw-toggle:hover { background: var(--color-light-bg); color: var(--color-dark-text); }
+.pw-icon--hide { display: none; }
+.pw-toggle[aria-pressed="true"] .pw-icon--show { display: none; }
+.pw-toggle[aria-pressed="true"] .pw-icon--hide { display: block; }
+
+/* Asuransi: tombol pakai class btn/btn--primary juga harus biru (halaman login tidak load admin.css) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+.btn--primary {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+.btn--primary:hover {
+  background: var(--color-blue-hover);
+}
+.login-page {
+  accent-color: var(--color-blue);
+}
+.login-page a:focus-visible,
+.login-page button:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+.login-card ::selection {
+  background: #BFDBFE;
+}
+.login-submit {
+  width: 100%;
+  height: 48px;
+  margin-top: .25rem;
+  font-size: .85rem;
+  font-weight: 600;
+  position: relative;
+  background: var(--color-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  box-shadow: 0 8px 20px rgba(var(--blue-rgb), .25);
+  transition: background .2s, transform .15s, box-shadow .15s;
+}
+.login-submit:hover {
+  background: var(--color-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(var(--blue-rgb), .38);
+}
+.login-submit:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+.login-submit.is-loading { pointer-events: none; opacity: .92; }
+
+.login-submit__spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, .35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.login-submit.is-loading .login-submit__spinner { display: inline-block; }
+
+.login-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  margin: .75rem 0 0;
+  font-size: .65rem;
+  color: var(--color-secondary-text);
+}
+.login-secure svg { width: 14px; height: 14px; color: var(--color-blue); }
+
+.login-divider { margin: .85rem 0 .75rem; }
+.login-divider span { display: block; height: 1px; background: var(--color-border); }
+
+.login-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--color-dark-text);
+  text-decoration: none;
+  transition: color .2s, gap .15s var(--ease);
+}
+.login-back:hover { color: var(--color-blue); gap: .5rem; }
+
+.login-footer {
+  text-align: center;
+  color: rgba(255, 255, 255, .5);
+  font-size: .65rem;
+  line-height: 1.75;
+  animation: loginFadeUp .7s var(--ease) .12s both;
+}
+.login-footer p { margin: .05rem 0; }
+
+@keyframes loginFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Responsif ─── */
+@media (max-width: 480px) {
+  .login-page { padding: 1.25rem .75rem; }
+  .login-shell { gap: 1rem; padding: .5rem 0; }
+  .login-card { padding: 1.3rem 1rem 1.1rem; border-radius: 14px; }
+  .login-title { font-size: 1.25rem; }
+  .login-subtitle { font-size: .75rem; }
+  .login-footer { font-size: .6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-brand, .login-card, .login-footer, .login-alert { animation: none; }
+}

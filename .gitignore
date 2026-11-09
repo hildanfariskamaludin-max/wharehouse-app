@@ -1,0 +1,8 @@
+# Rahasia — jangan pernah di-push
+config/app.key
+.env
+.env.*
+*.log
+.DS_Store
+/vendor/
+node_modules/

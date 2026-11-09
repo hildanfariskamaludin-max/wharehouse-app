@@ -1,0 +1,236 @@
+/* ══════════════════════════════════════════════════════════════
+   WAREHOUSE SYSTEM — Personal Inventory Management Landing Page
+   Modern, Minimalist, Black & White Color Scheme
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+:root {
+  --color-black:        #000000;
+  --color-white:        #FFFFFF;
+  --color-blue:         #0066FF;
+  --color-light-gray:   #F3F5F8;
+  --color-muted-gray:   #AAB3C0;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+  --font-size-xxxl: 3rem;
+  --font-size-xxxx: 4rem;
+}
+
+/* ─── Base & Global ─── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--color-black);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+a { text-decoration: none; }
+
+.container {
+  width: min(1200px, 100% - 8%);
+  margin: 0 auto;
+  padding: 0 4%;
+}
+
+/* ─── 1. HEADER ─── */
+.navbar {
+  background: var(--color-black);
+  height: 72px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+.logo {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.logo span {
+  color: var(--color-blue);
+  font-weight: 800;
+}
+.btn-login {
+  background: var(--color-blue);
+  color: var(--color-white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.btn-login:hover {
+  background: #0052a0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* ─── 2. HERO SECTION ─── */
+.hero {
+  background: var(--color-black);
+  position: relative;
+  overflow: hidden;
+}
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+.hero-split {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+.hero-content {
+  max-width: 560px;
+}
+.hero-content h1 {
+  color: var(--color-white);
+  font-size: clamp(2.4rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.hero-content p {
+  color: var(--color-muted-gray);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 48ch;
+}
+.hero-image {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: inherit;
+}
+
+/* ─── 3. SECTION BELOW THE HERO ─── */
+.section {
+  background: var(--color-white);
+  padding: 6rem 4%;
+}
+.section .container {
+  max-width: none;
+}
+.section .content {
+  display: flex;
+  gap: 4%;
+  align-items: center;
+}
+.section .image {
+  width: 50%;
+  flex-shrink: 0;
+}
+.section .image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0;
+}
+.section .text {
+  width: 50%;
+  padding-top: 3rem;
+}
+.section .text h2 {
+  color: var(--color-black);
+  font-size: clamp(2.5rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+.section .text p {
+  color: var(--color-muted-gray);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ─── 4. RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-split {
+    gap: 2.5rem;
+  }
+  .hero-content h1 {
+    font-size: clamp(2.1rem, 4vw, 2.6rem);
+  }
+  .hero-image {
+    height: 420px;
+  }
+}
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 5%;
+    height: 64px;
+  }
+  .logo {
+    font-size: 1.15rem;
+  }
+  .hero-split {
+    grid-template-columns: 1fr !important;
+    gap: 1.75rem;
+  }
+  .hero-content {
+    max-width: 100% !important;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 2.05rem;
+  }
+  .hero-content p {
+    font-size: 0.98rem;
+    margin: 0 auto;
+    max-width: 42ch;
+  }
+  .hero-image {
+    height: 320px;
+  }
+  .hero-image img {
+    height: 100%;
+  }
+  .section .content {
+    flex-direction: column;
+  }
+  .section .image {
+    width: 100%;
+  }
+  .section .text {
+    width: 100%;
+    padding-top: 2rem;
+  }
+}
